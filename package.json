@@ -1,0 +1,30 @@
+{
+  "name": "github-api",
+  "version": "1.0.0",
+  "description": "Github API using Node",
+  "main": "server/main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "npm start server/main.js",
+    "dev": "nodemon server/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jparrott06/github-api.git"
+  },
+  "author": "Jacob Parrott",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jparrott06/github-api/issues"
+  },
+  "homepage": "https://github.com/jparrott06/github-api#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "puppeteer": "^13.1.1"
+  }
+}
