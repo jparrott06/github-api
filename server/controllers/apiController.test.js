@@ -3,7 +3,6 @@ const apiController = require('./apiController');
 
 describe('Test getPRArrayFromResponse ', () => {
 
-    test('returns array of PullRequest Objects from response', () => {
     let mockResponse = {};
     mockResponse.data = [
         {
@@ -334,18 +333,37 @@ describe('Test getPRArrayFromResponse ', () => {
         }
       ];
         
-
     const prArray = apiController.getPRArrayFromResponse(mockResponse);
-    console.log(prArray);
+
+    test('returns array of PullRequest Objects from response', () => {
     
-    expect(prArray.length).toEqual(1);
-    expect(prArray[0].number).toEqual(1);
-    expect(prArray[0].compareUrl).toEqual('https://api.github.com/repos/jparrott06/ChirpyApp/compare/d7d7e62d3013e37fe59a79712d22312c13d88cef...608081cedebe9f6eed938c4db7ccf6b8611c36f4');
-    expect(prArray[0].state).toEqual('open');
-
-
+      expect(prArray.length).toEqual(1);
+      expect(prArray[0].number).toEqual(1);
+      expect(prArray[0].compareUrl).toEqual('https://api.github.com/repos/jparrott06/ChirpyApp/compare/d7d7e62d3013e37fe59a79712d22312c13d88cef...608081cedebe9f6eed938c4db7ccf6b8611c36f4');
+      expect(prArray[0].state).toEqual('open');
 
     })
 
+    test('PullRequest Array length same as response.data', () => {
+      expect(prArray.length).toEqual(mockResponse.data.length);
+    })
+
+    test('PullRequests have number field populated', () => {
+      prArray.forEach(pr => {
+        expect(pr.number !== null)
+      })
+    })
+
+    test('PullRequests have compareUrl field populated', () => {
+      prArray.forEach(pr => {
+        expect(pr.compareUrl !== null)
+      })
+    })
+
+    test('PullRequests have state field populated', () => {
+      prArray.forEach(pr => {
+        expect(pr.state !== null)
+      })
+    })
 
 })

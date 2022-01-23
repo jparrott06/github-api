@@ -2,6 +2,26 @@
 
 const axios = require("axios");
 
+async function updatePRInfo(oldPRList) {
+
+    const promises = oldPRList.map(async pr => {
+
+        let url = pr.compareUrl;
+        const response = await axios.get(url)
+        return {
+            number: pr.number,
+            state: pr.state,
+            compareUrl: pr.compareUrl,
+            total_commits: response.data.total_commits
+        }
+    })
+
+    const results = await Promise.all(promises)
+    //console.log(results);
+
+    return results;
+
+}
 
 module.exports = {
 
@@ -42,7 +62,7 @@ module.exports = {
         // TODO: create const to be user input for repo from FrontEnd
 
         // url to get all oepn PRs for repo TODO: generalize for form input
-        let pullsUrl = 'https://api.github.com/repos/jparrott06/ChirpyApp/pulls';
+        let pullsUrl = 'https://api.github.com/repos/colinhacks/zod/pulls';
 
         try {
 
@@ -85,24 +105,30 @@ module.exports = {
             next();
         }
 
+    },
+
+    // Get the total # of commits for each PullRequest Object
+    getCommitNum: async (req, res, next) => {
+
+        let prArray = res.locals.prArray;
+
+        try {
+            const newPRArray = await updatePRInfo(prArray);
+            console.log(newPRArray);
+            res.locals.prArray = newPRArray;
+            next()
+        } catch (err) {
+            console.log(err);
+            next();
+        }
+
+    },
+
+    respondJSON: (req, res) => {
+        res.json({
+            data: res.locals
+        });
     }
-
-    /* TODO: 
-        Add method to iterate through prArray and 
-            GET request with compare_url
-        ex: 'https://api.github.com/repos/jparrott06/ChirpyApp/compare/d7d7e62d3013e37fe59a79712d22312c13d88cef...608081cedebe9f6eed938c4db7ccf6b8611c36f4'
-
-        get response.data.total_commits for each open PR
-    */
-
-
-
-
-
-
-
-
-
 
 
 }
