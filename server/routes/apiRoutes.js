@@ -1,14 +1,9 @@
 const router = require("express").Router(),
 apiController = require("../controllers/apiController");
 
-router.get("/");
 
-
-
-
-
-
-
+// Route to get all open pull requests give repo
+router.get("/getOpenPRs", apiController.getOpenPRs);
 
 
 module.exports = router;
