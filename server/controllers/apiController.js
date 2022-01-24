@@ -59,10 +59,14 @@ module.exports = {
 
         // url: https://api.github.com/{user}/{repo}/pulls
 
-        // TODO: create const to be user input for repo from FrontEnd
+        let searchRepo = req.query.text.replace('https://github.com/','');
 
-        // url to get all oepn PRs for repo TODO: generalize for form input
-        let pullsUrl = 'https://api.github.com/repos/colinhacks/zod/pulls';
+        console.log(searchRepo);
+
+        // url to get all open PRs for repo
+        let pullsUrl = `https://api.github.com/repos/${searchRepo}/pulls`;
+
+        console.log(pullsUrl);
 
         try {
 
