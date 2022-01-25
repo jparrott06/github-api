@@ -3,30 +3,35 @@
 const axios = require("axios");
 
 async function updatePRInfo(oldPRList) {
+    console.log("updatePRInfo");
+    try {
 
-    const promises = oldPRList.map(async pr => {
+        const promises = oldPRList.map(async pr => {
 
-        let url = pr.compareUrl;
-        const response = await axios.get(url)
-        return {
-            number: pr.number,
-            state: pr.state,
-            compareUrl: pr.compareUrl,
-            total_commits: response.data.total_commits
-        }
-    })
+            let url = pr.compareUrl;
+            const response = await axios.get(url)
+            return {
+                number: pr.number,
+                state: pr.state,
+                compareUrl: pr.compareUrl,
+                total_commits: response.data.total_commits
+            }
+        })
 
-    const results = await Promise.all(promises)
-    //console.log(results);
+        const results = await Promise.all(promises);
 
-    return results;
+        return results;
+
+    } catch (err) {
+        throw new Error("Sorry, something went wrong with your application :'(")
+    }
 
 }
 
 module.exports = {
 
     getPRArrayFromResponse: (response) => {
-
+        console.log("getPRArrayFromResponse");
         let prArray = [];
         try {
     
@@ -56,8 +61,12 @@ module.exports = {
 
     // Get all Open Pull-Requests for a specific Github Repo. Returns Array of PullRequest Objects
     getOpenPRs: async (req, res, next) => {
-
+        console.log("getOpenPRs");
         // url: https://api.github.com/{user}/{repo}/pulls
+
+        if (!req.query.text) {
+            next(new Error("Search parameters cannot be blank"));
+        }
 
         let searchRepo = req.query.text.replace('https://github.com/','');
 
@@ -72,6 +81,10 @@ module.exports = {
 
             const response = await axios.get(pullsUrl)
             //console.log(response);
+
+            if (response.status != 200) {
+                next(new Error("Sorry - repo not found :/"));
+            }
 
             // array to hold PullRequest Objects
             let prArray = [];
@@ -105,14 +118,15 @@ module.exports = {
             next();
 
         } catch (err) {
-            console.log(err);
-            next();
+            console.log('getOpenPRs err: ' + err);
+            next(err);
         }
 
     },
 
     // Get the total # of commits for each PullRequest Object
     getCommitNum: async (req, res, next) => {
+        console.log("getCommitNum");
 
         let prArray = res.locals.prArray;
 
@@ -122,15 +136,17 @@ module.exports = {
             res.locals.prArray = newPRArray;
             next()
         } catch (err) {
-            console.log(err);
-            next();
+            console.log('getComitNum err: ' + err);
+            next(err);
         }
 
     },
 
     respondJSON: (req, res) => {
+        console.log("respondJSON");
         res.json({
-            data: res.locals
+            data: res.locals,
+            status: 200
         });
     }
 
