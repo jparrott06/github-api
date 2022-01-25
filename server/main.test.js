@@ -70,9 +70,9 @@ test('End-to-End Testing --> Repo with Open Pull Requests', async () => {
 
     await page.waitForSelector('p.total_commits');
 
-    const errorsText = await page.$eval('p.total_commits', el => el.textContent);
+    const totalCommitsText = await page.$eval('p.total_commits', el => el.textContent);
 
-    expect(errorsText).toBe('Total Commits: 107');
+    expect(totalCommitsText).toBe('Total Commits: 107');
 
     browser.close();
 
