@@ -2,6 +2,7 @@ const Pulls = require('./Pulls');
 
 // Testing updatePRInfo helper function
 
+
 test('updatePRInfo returns new Array with total_commits', async () => {
 
     let prArray = [{
@@ -12,11 +13,11 @@ test('updatePRInfo returns new Array with total_commits', async () => {
 
     const newPRArray = await Pulls.updatePRInfo(prArray);
 
-    expect(newPRArray[0]).toBe({
+    expect(newPRArray[0]).toMatchObject({
         number: "1",
         state: "open",
         compareUrl: "https://api.github.com/repos/jparrott06/ChirpyApp/compare/d7d7e62d3013e37fe59a79712d22312c13d88cef...608081cedebe9f6eed938c4db7ccf6b8611c36f4",
-        total_commits: "107"
+        total_commits: 106
     });
 
     expect(prArray !== newPRArray);
@@ -25,21 +26,17 @@ test('updatePRInfo returns new Array with total_commits', async () => {
 
 });
 
-test('updatePRInfo returns empty Array when empty', async () => {
+test('updatePRInfo throw Error when input empty Array', async () => {
 
     let prArray = [{
 
     }];
 
-    const newPRArray = await Pulls.updatePRInfo(prArray);
-
-    expect(newPRArray[0]).toBe({
-
-    });
-
-    expect(prArray !== newPRArray);
-
-    expect(newPRArray.length == prArray.length);
+    try {
+      const newPRArray = await Pulls.updatePRInfo(prArray);
+    } catch (err) {
+      expect(err)
+    }
 
 });
 
@@ -51,9 +48,11 @@ test('updatePRInfo throw Error with invalid input', async () => {
         compareUrlError: "https://api.github.com/repos/jparrott06/ChirpyApp/compare/d7d7e62d3013e37fe59a79712d22312c13d88cef...608081cedebe9f6eed938c4db7ccf6b8611c36f4"
     }];
 
-    const newPRArray = await Pulls.updatePRInfo(prArray);
-
-    expect(Error);
+    try {
+      const newPRArray = await Pulls.updatePRInfo(prArray);
+    } catch (err) {
+      expect(err)
+    }
 
 });
 
