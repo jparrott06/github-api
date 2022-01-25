@@ -3,12 +3,14 @@
     <h1>Open Pull Requests</h1>
     <div class="search-repo">
       <label for="search-repo">Search Github Repo for Open Pull Requests</label>
+      <br>
       <input type="text" id="search-repo" v-model="text" placeholder="ex: https://github.com/{user}/{repo}">
+      <br>
       <button v-on:click="getOpenPRs">Search</button>
     </div>
     <hr>
     <p class="error" v-if="error">{{error}}</p>
-    <p class="no-pulls" v-if="pulls.length == 0">No Open Pull Requests for this Repo </p>
+    <p class="no-pulls" v-if="pulls.length == 0 && !error">No Open Pull Requests for this Repo </p>
     <div class="pulls-container">
       <div class="pull"
         v-for="(pull, index) in pulls"
@@ -59,9 +61,20 @@ div.container {
   margin: 0 auto;
 }
 
+input {
+  width: 300px
+}
+
 p.error {
   border: 1px solid #ff5b5f;
   background-color: #ffc5c1;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+p.no-pulls {
+  border: 1px solid #5bd658;
+  background-color: #bcffb8;
   padding: 10px;
   margin-bottom: 15px;
 }
