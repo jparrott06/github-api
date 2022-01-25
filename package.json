@@ -4,7 +4,7 @@
   "description": "Github API using Node",
   "main": "server/main.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "start": "npm start server/main.js",
     "dev": "nodemon server/main.js"
   },
@@ -27,6 +27,7 @@
   "devDependencies": {
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
-    "puppeteer": "^13.1.1"
+    "puppeteer": "^13.1.1",
+    "supertest": "^6.2.2"
   }
 }
