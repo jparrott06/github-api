@@ -10,7 +10,7 @@
     </div>
     <hr>
     <p class="error" v-if="error">{{error}}</p>
-    <p class="no-pulls" v-if="pulls.length == 0 && !error">No Open Pull Requests for this Repo </p>
+    <p class="no-pulls" v-if="pulls.length == 0 && !error && !onLoad">No Open Pull Requests for this Repo</p>
     <div class="pulls-container">
       <div class="pull"
         v-for="(pull, index) in pulls"
@@ -37,6 +37,7 @@ export default {
       pulls: [],
       error: '',
       text: '',
+      onLoad: true,
     }
   },
   methods: {
@@ -45,9 +46,11 @@ export default {
         let text = this.text
         this.pulls = await PullService.getPulls(text)
         this.error = '';
+        this.onLoad = false;
       } catch(err) {
         this.error = err.message;
         this.pulls = [];
+        this.onLoad = false;
       }
   }
 }
