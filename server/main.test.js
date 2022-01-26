@@ -1,13 +1,7 @@
 const router = require('./routes/index'),
 puppeteer = require('puppeteer');
 
-describe('Github API', () => {
-
-    it('GET /api/getOpenPRs --> Array PullRequest Objects', () => {
-
-    })
-
-})
+// End-to-End Testing of Application using Puppeteer
 
 test('End-to-End Testing --> Repo with No Open Pull Requests', async () => {
 

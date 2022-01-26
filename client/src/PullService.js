@@ -5,7 +5,8 @@ const url = 'http://localhost:5000/api/getOpenPRs';
 class PullService {
 
     // Get Open Pull Requests for specified Repo
-
+    // queries back-end with repo
+    // gets back all open PR's along with their total # of commits for front-end
     static getPulls(text) {
         
         return new Promise(async (resolve, reject) => {
@@ -13,24 +14,22 @@ class PullService {
             try {
                 const res = await axios.get(url, { params: { text: text } });
                 const data = res.data;
-                console.log("response");
-                console.log(res);
-                console.log("data");
-                console.log(data);
 
+                // Throw error is error Obj is returned
                 if(res.data.error) {
                     throw new Error(`Error: ${res.data.error.message}`);
                 }
 
                 console.log(data.data.prArray);
+                // resolve array of Pull Request Objects from Server
                 resolve(
                     data.data.prArray.map(pull => {
-                        console.log(pull)
                         return pull;
                     })
                 )
 
             } catch (err) {
+                // reject Promise if err
                 reject(err);
             }
         })

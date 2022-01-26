@@ -10,7 +10,6 @@ module.exports = {
     // Get all Open Pull-Requests for a specific Github Repo. Returns Array of PullRequest Objects
     getOpenPRs: async (req, res, next) => {
         console.log("getOpenPRs");
-        // url: https://api.github.com/{user}/{repo}/pulls
 
         if (!req.query.text) {
             next(new Error("Search parameters cannot be blank"));
@@ -28,12 +27,12 @@ module.exports = {
         try {
 
             const response = await axios.get(pullsUrl)
-            //console.log(response);
 
-            if (response.status != 200) {
+            if (response.status == 404) {
                 next(new Error("Sorry - repo not found :/"));
             }
 
+            // Call helper function to create array of PR Objects from response
             let prArray = Pulls.getPRArrayFromResponse(response);
 
             console.log(prArray);
@@ -55,6 +54,7 @@ module.exports = {
         let prArray = res.locals.prArray;
 
         try {
+            // Call helper function to return new PR Array with total_commits info
             const newPRArray = await Pulls.updatePRInfo(prArray);
             console.log(newPRArray);
             res.locals.prArray = newPRArray;
@@ -66,6 +66,7 @@ module.exports = {
 
     },
 
+    // Convert response to JSON - generalized and can be used for other routes as well
     respondJSON: (req, res) => {
         console.log("respondJSON");
         res.json({

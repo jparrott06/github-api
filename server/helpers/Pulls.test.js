@@ -1,7 +1,6 @@
 const Pulls = require('./Pulls');
 
-// Testing updatePRInfo helper function
-
+// Unit Testing for Pulls helper functions
 
 test('updatePRInfo returns new Array with total_commits', async () => {
 

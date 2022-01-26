@@ -4,6 +4,7 @@
 
 module.exports = {
 
+    // Not used - boilerplate for custom error page
     pageNotFoundError: (req, res) => {
         let errorCode = 404;
         res.status(errorCode);
@@ -17,6 +18,8 @@ module.exports = {
         console.error(error.stack);
     },
 
+    // Convert response w/ errors to json - generalized for any JSON response
+    // Handle different error types
     errorJSON: (error, req, res, next) => {
         console.log('errorJSON: ' + error);
         let errorObject;

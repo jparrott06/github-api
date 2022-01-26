@@ -19,6 +19,7 @@ module.exports = {
     
                 let url = pr.compareUrl;
                 const response = await axios.get(url)
+
                 // return new Object with previous info and total commits from response
                 return {
                     number: pr.number,
@@ -42,7 +43,6 @@ module.exports = {
 
     // Input: response from querying for repo based on user-input from FrontEnd
     // Returns: Array containing Objects of each Open PullRequest
-
     getPRArrayFromResponse: (response) => {
         console.log("getPRArrayFromResponse");
         let prArray = [];
