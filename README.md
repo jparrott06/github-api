@@ -117,16 +117,16 @@ I love working with API's and sleuthing around for the most efficient ways to gr
 
 Two examples in particular come to mind when doing this project:
 
-    - Getting the total_commits:
+- Getting the total_commits:
 
-        At first I remember trying the endpoints manually to scout out my plan for getting the total commits.
-        I went for the naive approach and tried to grab every commit, until I realised that the github api will limit the amount of commits returned for an open Pull Request to 30.
+    At first I remember trying the endpoints manually to scout out my plan for getting the total commits.
+    I went for the naive approach and tried to grab every commit, until I realised that the github api will limit the amount of commits returned for an open Pull Request to 30.
 
-        Reading the api.github documentation was a fun process where I was able to find out that comparison url for a particular pull request has the integer value of total_commits readily available.
+    Reading the api.github documentation was a fun process where I was able to find out that comparison url for a particular pull request has the integer value of total_commits readily available.
 
-    - Async with forEach
+- Async with forEach
 
-        Debugging what came to be my 'updatePRInfo' function under /helpers/Pulls.js was one of the most rewarding (and frustrating) parts of developing this application.
+    Debugging what came to be my 'updatePRInfo' function under /helpers/Pulls.js was one of the most rewarding (and frustrating) parts of developing this application.
 
-        I was used to using .then(), .catch() syntax, only to find out 'it is no longer best practice', and then using .map (a synchronous function) within an async function to dynamically return updated Pull Request objects... was quite the adventure. What I enjoyed about this though was gaining a much deeper understanding of async functions and Promises. Now I'm excited about what I can do with these enhanced skills for the next iteration or application.
+    I was used to using .then(), .catch() syntax, only to find out 'it is no longer best practice', and then using .map (a synchronous function) within an async function to dynamically return updated Pull Request objects... was quite the adventure. What I enjoyed about this though was gaining a much deeper understanding of async functions and Promises. Now I'm excited about what I can do with these enhanced skills for the next iteration or application.
 
