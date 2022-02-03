@@ -124,7 +124,7 @@ Two examples in particular come to mind when doing this project:
 
     Reading the api.github documentation was a fun process where I was able to find out that comparison url for a particular pull request has the integer value of total_commits readily available.
 
-- Async with forEach
+- Async with .map()
 
     Debugging what came to be my 'updatePRInfo' function under /helpers/Pulls.js was one of the most rewarding (and frustrating) parts of developing this application.
 
